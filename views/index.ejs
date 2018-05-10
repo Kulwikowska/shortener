@@ -18,6 +18,7 @@
                 <th scope="col">Shorten URL</th>
                 <th scope="col">Long URL</th>
                 <th scope="col">Go!</th>
+                <th scope="col">When?</th>
             </tr>
         </thead>
         <tbody>
@@ -31,6 +32,9 @@
                         <%=link.url%>
                     </th>
                     <th><a href="<%= link.url %>" class="btn btn-primary">GO!</a></th>
+                    <th>
+                        <%= moment(link.createdAt).fromNow() %>
+                    </th>
                 </tr>
                 <% }); %>
 

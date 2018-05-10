@@ -2,9 +2,10 @@ var express = require("express");
 var router = express.Router();
 var Link = require("../models/link");
 
+
 //INDEX - show all links
 router.get("/", function(req, res) {
-    Link.find({}, function(err, allLinks) {
+    Link.find({}).sort({ createdAt: -1 }).exec(function(err, allLinks) {
         if (err) {
             console.log(err);
         } else {
@@ -33,7 +34,7 @@ router.post("/api/links", function(req, res) {
                     console.log(err);
                 } else {
                     console.log(newlyCreated);
-                    res.render("index", { link: newlyCreated });
+                    res.redirect("/");
                 }
             });
         }
