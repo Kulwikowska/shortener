@@ -17,18 +17,27 @@ var linkSchema = new mongoose.Schema({
 
 var Link = mongoose.model("Link", linkSchema);
 
-//index route
-app.get("/", function(req, res) {
-    res.render("index");
-});
+
 
 // new route 
 app.get("/links/new", function(req, res) {
     res.render("links/new");
 });
 
+
+//index route
+app.get("/", function(req, res) {
+    Link.find({}, function(err, allLinks) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render("index", { allLinks: allLinks });
+        }
+    })
+});
+
 app.post("/api/links", function(req, res) {
-    var url = req.body.url;
+    var url = req.body.link.url;
     var newLink = { url: url }
     Link.create(newLink, function(err, newlyCreated) {
         if (err) {
@@ -39,12 +48,33 @@ app.post("/api/links", function(req, res) {
                 if (err) {
                     console.log(err);
                 } else {
-                    res.render("index");
+                    console.log(newlyCreated);
+                    res.render("index", { link: newlyCreated });
                 }
             });
         }
     });
 });
+
+
+app.get("/:shorten", function(req, res) {
+    var shorten = req.params.shorten;
+    Link.findOne({ shorten: shorten }, function(err, link) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(link);
+            res.redirect(link.url);
+        }
+    });
+});
+
+
+
+
+
+
+
 
 
 

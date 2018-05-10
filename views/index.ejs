@@ -2,8 +2,41 @@
 
 
 
-    <h1>Welcome</h1>>
-    <a href="/links/new">Add New link</a>
+    <header class="jumbotron">
+        <div class="container">
+            <h1>Welcome To LINKS SHORTER!</h1>
+            <p>
+                <a class="btn btn-primary btn-large" href="/links/new">Add New Link</a>
+            </p>
+        </div>
+    </header>
+
+    <table class="table table-striped table-dark">
+        <thead>
+            <tr>
+
+                <th scope="col">Shorten URL</th>
+                <th scope="col">Long URL</th>
+                <th scope="col">Go!</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <% allLinks.forEach(function(link){ %>
+                <tr>
+                    <th>
+                        <%=link.shorten %>
+                    </th>
+                    <th>
+                        <%=link.url%>
+                    </th>
+                    <th><a href="<%= link.url %>" class="btn btn-primary">GO!</a></th>
+                </tr>
+                <% }); %>
+
+        </tbody>
+    </table>
+
 
 
 
