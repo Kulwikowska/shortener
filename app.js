@@ -1,21 +1,15 @@
 var express = require("express"),
     app = express(),
     bodyParser = require("body-parser"),
-    mongoose = require("mongoose")
+    mongoose = require("mongoose"),
+    Link = require("./models/link")
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.use(express.static('public'));
 
 mongoose.connect("mongodb://localhost/myapp");
-
-var linkSchema = new mongoose.Schema({
-    createdAt: { type: Date, default: Date.now },
-    url: String,
-    shorten: String
-});
-
-var Link = mongoose.model("Link", linkSchema);
 
 
 
@@ -25,16 +19,7 @@ app.get("/links/new", function(req, res) {
 });
 
 
-//index route
-app.get("/", function(req, res) {
-    Link.find({}, function(err, allLinks) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.render("index", { allLinks: allLinks });
-        }
-    })
-});
+
 
 app.post("/api/links", function(req, res) {
     var url = req.body.link.url;
@@ -67,6 +52,17 @@ app.get("/:shorten", function(req, res) {
             res.redirect(link.url);
         }
     });
+});
+
+//index route
+app.get("/", function(req, res) {
+    Link.find({}, function(err, allLinks) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render("index", { allLinks: allLinks });
+        }
+    })
 });
 
 
