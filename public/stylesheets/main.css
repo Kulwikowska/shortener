@@ -1,0 +1,9 @@
+body {
+    background-color: #fff;
+}
+
+#header-jumbotron {
+    text-align: center;
+    position: relative;
+    padding-top: 10vh;
+}

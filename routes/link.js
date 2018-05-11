@@ -49,6 +49,8 @@ router.get("/:shorten", function(req, res) {
             console.log(err);
         } else {
             console.log(link);
+            link.clicks++;
+            link.save();
             res.redirect(link.url);
         }
     });

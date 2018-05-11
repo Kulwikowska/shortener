@@ -1,45 +1,53 @@
 <% include ./partials/header %>
 
-
-
-    <header class="jumbotron">
+    <div id="header-jumbotron">
         <div class="container">
-            <h1>Welcome To LINKS SHORTER!</h1>
-            <p>
-                <a class="btn btn-primary btn-large" href="/links/new">Add New Link</a>
-            </p>
+            <header class="jumbotron">
+                <div class="container">
+                    <h1 class="display-4">Welcome to link shortener!</h1>
+                    <p class="lead">This is small app. Let's shorten you link! </p>
+                    <hr class="my-4">
+                    <p class="lead">
+                        <a href="/links/new" class="btn btn-danger btn-lg" type="button">Add New Link</a>
+                    </p>
+                </div>
+            </header>
         </div>
-    </header>
+    </div>
 
-    <table class="table table-striped table-dark">
-        <thead>
-            <tr>
+    <div id="links">
+        <div class="container">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Shorten URL</th>
+                        <th scope="col">Long URL</th>
+                        <th scope="col">Go!</th>
+                        <th scope="col">When?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% allLinks.forEach(function(link){ %>
+                        <tr>
+                            <th>
+                                <%=link.shorten %>
+                            </th>
+                            <th>
+                                <%=link.url%>
+                            </th>
+                            <th><a href="<%= link.url %>" class="btn btn-danger">GO!</a></th>
+                            <th>
+                                <%= moment(link.createdAt).fromNow() %>
+                            </th>
+                        </tr>
+                        <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-                <th scope="col">Shorten URL</th>
-                <th scope="col">Long URL</th>
-                <th scope="col">Go!</th>
-                <th scope="col">When?</th>
-            </tr>
-        </thead>
-        <tbody>
 
-            <% allLinks.forEach(function(link){ %>
-                <tr>
-                    <th>
-                        <%=link.shorten %>
-                    </th>
-                    <th>
-                        <%=link.url%>
-                    </th>
-                    <th><a href="<%= link.url %>" class="btn btn-primary">GO!</a></th>
-                    <th>
-                        <%= moment(link.createdAt).fromNow() %>
-                    </th>
-                </tr>
-                <% }); %>
 
-        </tbody>
-    </table>
 
 
 
