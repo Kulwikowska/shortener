@@ -10,7 +10,7 @@ router.get("/", function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.render("index", { allLinks: allLinks });
+            res.render("index", { allLinks: allLinks, host: req.headers.host });
         }
     })
 });

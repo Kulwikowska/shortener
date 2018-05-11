@@ -23,21 +23,27 @@
                         <th scope="col">Shorten URL</th>
                         <th scope="col">Long URL</th>
                         <th scope="col">Go!</th>
-                        <th scope="col">When?</th>
+                        <th scope="col">When added?</th>
+                        <th scope="col">Clicks</th>
                     </tr>
                 </thead>
                 <tbody>
                     <% allLinks.forEach(function(link){ %>
                         <tr>
                             <th>
-                                <%=link.shorten %>
+                                <%= 'http://' +  host + '/' + link.shorten %>
                             </th>
                             <th>
-                                <%=link.url%>
+                                <a alt="<%=link.url%>">
+                                    <%=link.url.substring(0, 25)%>
+                                </a>
                             </th>
-                            <th><a href="<%= link.url %>" class="btn btn-danger">GO!</a></th>
+                            <th><a href="<%= 'http://' +  host + '/' + link.shorten %>" class="btn btn-danger" target="_blank">GO!</a></th>
                             <th>
                                 <%= moment(link.createdAt).fromNow() %>
+                            </th>
+                            <th>
+                                <%= link.clicks.length %>
                             </th>
                         </tr>
                         <% }); %>
@@ -45,11 +51,5 @@
             </table>
         </div>
     </div>
-
-
-
-
-
-
 
     <% include ./partials/footer %>
