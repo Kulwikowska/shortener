@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var Link = require("../models/link");
+var Click = require("../models/click");
 
 
 //INDEX - show all links
@@ -48,9 +49,15 @@ router.get("/:shorten", function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            console.log(link);
-            link.clicks++;
-            link.save();
+            console.log("Clicks quantity: " + link.clicks.length);
+            Click.create({}, function(err, click) {
+                if (err) {
+                    console.log(err);
+                    return;
+                }
+                link.clicks.push(click);
+                link.save();
+            });
             res.redirect(link.url);
         }
     });
