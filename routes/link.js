@@ -49,7 +49,6 @@ router.get("/:shorten", function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            console.log("Clicks quantity: " + link.clicks.length);
             Click.create({}, function(err, click) {
                 if (err) {
                     console.log(err);
@@ -57,8 +56,8 @@ router.get("/:shorten", function(req, res) {
                 }
                 link.clicks.push(click);
                 link.save();
+                res.redirect(link.url);
             });
-            res.redirect(link.url);
         }
     });
 });
